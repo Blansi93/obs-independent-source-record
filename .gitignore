@@ -1,0 +1,25 @@
+# Build
+/build
+/build-*/
+/CMakeFiles
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# Staged plugin bundle
+/stage
+
+# Dependencies
+/.deps
+
+# Editor / OS
+.vs/
+.idea/
+*.user
+Thumbs.db
+.DS_Store
