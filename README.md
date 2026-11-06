@@ -4,8 +4,12 @@ Plugin for **OBS Studio 33.0+** that records a single source to its own file, wi
 
 ## Download
 
-Prebuilt Windows (x64) releases are available on the [Releases](https://github.com/Blansi93/obs-independent-source-record/releases) page. Download the latest ZIP, extract it so that `obs-record-source/obs-record-source.dll` and `obs-record-source/data/manifest.json` end up under your OBS plugins folder (for example `C:\ProgramData\obs-studio\plugins\obs-record-source`), then restart OBS. No compilation is required.
+Prebuilt Windows (x64) releases are available on the [Releases](https://github.com/Blansi93/obs-independent-source-record/releases) page. No compilation is required.
 
+- **Installer (recommended):** `obs-record-source-setup-0.2.0.exe` installs the plugin into `C:\ProgramData\obs-studio\plugins\obs-record-source` and includes an uninstaller.
+- **ZIP:** extract it so that `obs-record-source/obs-record-source.dll` and `obs-record-source/data/manifest.json` end up under your OBS plugins folder (for example `C:\ProgramData\obs-studio\plugins\obs-record-source`).
+
+Restart OBS after installing.
 ## Features
 
 - Independent recording of a video source (scene, game, window, capture card, etc.).
