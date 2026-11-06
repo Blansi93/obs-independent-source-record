@@ -1,50 +1,50 @@
 # Record Source
 
-Plugin para **OBS Studio 33.0+** que graba una fuente concreta en un archivo propio, con su propia pista de audio y su propio panel de control. No comparte el sistema de salida con la transmisión, la grabación principal ni el búfer de repetición.
+Plugin for **OBS Studio 33.0+** that records a single source to its own file, with its own audio track and its own control dock. It does not share the output system with streaming, the main recording, or the replay buffer.
 
-## Características
+## Features
 
-- Grabación independiente de una fuente de vídeo (escena, juego, ventana, capturadora, etc.).
-- Pista de audio propia, capturada desde la fuente seleccionada.
-- Archivo independiente mediante `ffmpeg_muxer`.
-- Panel pequeño integrado en OBS (`Docks -> Record Source`).
-- Configuración de codificadores de vídeo y audio con las mismas propiedades que expone OBS.
-- Ajustes de color por grabación: formato de color (NV12, I420, I444, P010), espacio de color (Rec. 709, Rec. 601, sRGB, Rec. 2100 PQ/HLG) y gama de colores (limitada o completa).
-- División automática de la grabación en varios archivos por tiempo o tamaño, como en OBS.
-- Interfaz en inglés por defecto y en español cuando OBS está configurado en español.
-- Compatible con OBS Studio 33.0.
+- Independent recording of a video source (scene, game, window, capture card, etc.).
+- Its own audio track, captured from the selected source.
+- Standalone file through `ffmpeg_muxer`.
+- Small dock integrated in OBS (`Docks -> Record Source`).
+- Video and audio encoder configuration with the same properties exposed by OBS.
+- Per-recording color settings: color format (NV12, I420, I444, P010), color space (Rec. 709, Rec. 601, sRGB, Rec. 2100 PQ/HLG), and color range (limited or full).
+- Automatic splitting of the recording into multiple files by time or size, like OBS.
+- **Bilingual UI**: English by default for any OBS language except Spanish, where the UI is Spanish.
+- Compatible with OBS Studio 33.0.
 
-## Compilación
+## Build
 
-Requisitos:
+Requirements:
 
-- Visual Studio 2022 Build Tools con C++.
-- CMake 3.28 o superior.
-- Fuentes de OBS Studio 33.0.1.
-- Paquete Qt 6 de `obs-deps`.
-- OBS Studio 33.0.1 instalado.
+- Visual Studio 2022 Build Tools with C++.
+- CMake 3.28 or higher.
+- OBS Studio 33.0.1 sources.
+- Qt 6 package from `obs-deps`.
+- OBS Studio 33.0.1 installed.
 
-Compilación:
+Build:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Config Release -Install
 ```
 
-El script descarga las dependencias si no están disponibles, genera las bibliotecas de importación desde `obs.dll` y `obs-frontend-api.dll`, configura CMake, compila y, con `-Install`, copia el plugin a:
+The script downloads dependencies if they are not available, generates the import libraries from `obs.dll` and `obs-frontend-api.dll`, configures CMake, builds, and, with `-Install`, copies the plugin to:
 
 ```text
 C:\ProgramData\obs-studio\plugins\obs-record-source
 ```
 
-## Desarrollo
+## Development
 
-Para probar sin instalar en `ProgramData`, define:
+To test without installing in `ProgramData`, define:
 
 ```powershell
-$env:OBS_PLUGINS_PATH = "C:\ruta\al\parent\del\bundle"
+$env:OBS_PLUGINS_PATH = "C:\path\to\parent\of\the\bundle"
 ```
 
-OBS espera el plugin en:
+OBS expects the plugin at:
 
 ```text
 <parent>\obs-record-source\obs-record-source.dll
@@ -53,46 +53,46 @@ OBS espera el plugin en:
 <parent>\obs-record-source\data\locale\es-ES.ini
 ```
 
-## Uso
+## Usage
 
-1. Abre OBS Studio.
-2. Abre el dock `Record Source`.
-3. Selecciona la fuente de vídeo.
-4. Elige la carpeta de destino, el formato y, si lo necesitas, los ajustes de color y la división de archivos.
-5. Selecciona y configura los codificadores de vídeo y audio.
-6. Pulsa **Iniciar grabación**.
-7. Pulsa **Detener** para finalizar.
+1. Open OBS Studio.
+2. Open the `Record Source` dock.
+3. Select the video source.
+4. Choose the destination folder, format, and, if needed, color settings and file splitting.
+5. Select and configure the video and audio encoders.
+6. Click **Start recording**.
+7. Click **Stop** to finish.
 
-Los ajustes se guardan automáticamente en la configuración del plugin.
+Settings are saved automatically in the plugin configuration.
 
-### Idioma
+### Color settings
 
-La interfaz del plugin sigue el idioma de OBS:
-
-- Si OBS está en **español**, el plugin usa español (`es-ES`).
-- Con cualquier otro idioma, incluido el inglés, el plugin usa **inglés** (`en-US`).
-
-Los textos están en `data/locale/en-US.ini` y `data/locale/es-ES.ini`. El inglés se carga siempre como base y el español se superpone cuando corresponde, así que si falta una clave en un idioma se muestra el texto en inglés. OBS no permite traducir los metadatos de `manifest.json`, que están en inglés por defecto.
-
-Para añadir otro idioma, crea `data/locale/<locale>.ini`, añádelo a las reglas de `CMakeLists.txt` y amplía la selección de idioma de `obs_module_set_locale` en `src/plugin-main.cpp`.
-
-### Ajustes de color
-
-- **Formato de color**: `NV12` e `I420` son 4:2:0 de 8 bits y los más compatibles. `I444` conserva más detalle de color y `P010` usa 10 bits.
-- **Espacio de color**: `Rec. 709` es el estándar SDR. `Rec. 2100 PQ/HLG` usa la gama `Rec. 2020` (HDR) y requiere un formato de 10 bits y un codificador compatible; el x264 de OBS no lo admite.
-- **Gama de colores**: `Limitado` (16-235) es lo habitual en YUV; `Completo` (0-255) conserva todo el rango.
-- La opción **Automático** de cada ajuste mantiene el valor que OBS tiene configurado en ese momento, así que el comportamiento predeterminado no cambia.
+- **Color format**: `NV12` and `I420` are 8-bit 4:2:0 and the most compatible. `I444` preserves more color detail and `P010` uses 10 bits.
+- **Color space**: `Rec. 709` is the SDR standard. `Rec. 2100 PQ/HLG` uses the `Rec. 2020` gamut (HDR) and requires a 10-bit format and a compatible encoder; OBS' x264 does not support it.
+- **Color range**: `Limited` (16-235) is usual for YUV; `Full` (0-255) preserves the entire range.
+- The **Automatic** option in each setting keeps the value OBS currently has configured, so the default behavior does not change.
 
 ### Audio
 
-El plugin no captura la fuente de audio de forma aislada: al iniciar la grabación, añade temporalmente la fuente seleccionada a la pista de OBS indicada y graba esa pista completa. Por eso, para grabar solo esa fuente, debes desactivar el resto de fuentes de audio en esa misma pista. Al detener la grabación se restauran las pistas originales de la fuente.
+The plugin does not capture the audio source in isolation: when recording starts, it temporarily adds the selected source to the OBS track you choose and records that whole track. That is why, to record only that source, you must disable the other audio sources on the same track. When recording stops, the source's original tracks are restored.
 
-### División de archivos
+### File splitting
 
-El ajuste **Dividir archivo** hace que la grabación continúe en otro archivo al alcanzar un límite, igual que en OBS (`Ajustes -> Salida -> Grabación`):
+The **Split file** setting makes the recording continue in another file when a limit is reached, just like OBS (`Settings -> Output -> Recording`):
 
-- **No dividir**: un único archivo por grabación.
-- **Por tiempo**: cada archivo dura los minutos indicados (15 por defecto).
-- **Por tamaño**: cada archivo ocupa como máximo los MB indicados (2048 por defecto, mínimo 20 MB).
+- **Do not split**: a single file per recording.
+- **By time**: each file lasts the specified number of minutes (15 by default).
+- **By size**: each file is at most the specified number of MB (2048 by default, minimum 20 MB).
 
-La división se hace en el siguiente fotograma clave, así que cada parte puede superar ligeramente el límite. Las partes se guardan en la carpeta de destino con el mismo patrón de nombre que el primer archivo, usando la fecha y hora de cuando se crea cada una. El panel **Archivo** muestra siempre la parte que se está grabando en ese momento.
+Splitting happens at the next keyframe, so each part may slightly exceed the limit. Parts are saved in the destination folder using the same naming pattern as the first file, with the date and time of when each one is created. The **File** field always shows the part currently being recorded.
+
+### Language
+
+The plugin UI follows OBS' language:
+
+- If OBS is set to **Spanish**, the plugin uses Spanish (`es-ES`).
+- With any other language, including English, the plugin uses **English** (`en-US`).
+
+The texts live in `data/locale/en-US.ini` and `data/locale/es-ES.ini`. English is always loaded as the base and Spanish is overlaid when appropriate, so if a key is missing in a language the English text is shown. OBS does not allow translating `manifest.json` metadata, which is in English by default.
+
+To add another language, create `data/locale/<locale>.ini`, add it to the `CMakeLists.txt` rules, and extend the language selection in `obs_module_set_locale` in `src/plugin-main.cpp`.
