@@ -1,6 +1,8 @@
 # Record Source
 
-Plugin for **OBS Studio 33.0+** that records a single source to its own file, with its own audio track and its own control dock. It does not share the output system with streaming, the main recording, or the replay buffer.
+Plugin for **OBS Studio 33.0+**
+
+> This plugin was developed with the assistance of AI. that records a single source to its own file, with its own audio track and its own control dock. It does not share the output system with streaming, the main recording, or the replay buffer.
 
 ## Download
 
