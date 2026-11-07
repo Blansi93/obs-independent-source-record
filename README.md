@@ -87,7 +87,7 @@ The plugin writes a `record-source.log` file next to its DLL (for example `C:\Pr
 
 ### Audio
 
-The plugin does not capture the audio source in isolation: when recording starts, it temporarily adds the selected source to the OBS track you choose and records that whole track. That is why, to record only that source, you must disable the other audio sources on the same track. When recording stops, the source's original tracks are restored.
+The plugin does not capture the audio source in isolation: when recording starts, it temporarily adds the selected source to the OBS track you choose and records that whole track. That is why, to record only that source, you must disable the other audio sources on the same track. The selected audio is effectively duplicated onto that track, so any filters added to the original OBS source are also recorded. When recording stops, the source's original tracks are restored.
 
 ### File splitting
 
