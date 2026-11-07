@@ -845,8 +845,11 @@ void RecordSourceDock::UpdateUi()
 		}
 	}
 
-	if (sourceCombo->count() == 0)
+	if (sourceCombo->count() == 0) {
 		statusLabel->setText(Tr("Dock.Status.NoSources"));
+	} else if (statusLabel->text() == Tr("Dock.Status.NoSources")) {
+		statusLabel->setText(Tr("Dock.Status.Ready"));
+	}
 }
 
 void RecordSourceDock::StartRecording()
