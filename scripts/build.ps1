@@ -361,7 +361,8 @@ if ($Install) {
     $target = Join-Path $env:ProgramData "obs-studio\plugins\obs-record-source"
     Write-Step "Instalando en $target"
     if (Test-Path $target) {
-        Remove-Item $target -Recurse -Force
+        # Remove-Item can fail on some files in ProgramData; use .NET instead.
+        [System.IO.Directory]::Delete($target, $true)
     }
     New-Item -ItemType Directory -Path $target -Force | Out-Null
     Copy-Item (Join-Path $stageDir "obs-record-source.dll") $target -Force

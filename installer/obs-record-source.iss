@@ -1,5 +1,5 @@
 #define MyAppName "OBS Record Source"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.2.1"
 #define MyAppPublisher "Blansi93"
 #define MyAppURL "https://github.com/Blansi93/obs-independent-source-record"
 
@@ -12,7 +12,7 @@ AppPublisherURL={#MyAppURL}
 DefaultDirName={commonappdata}\obs-studio\plugins\obs-record-source
 DisableProgramGroupPage=yes
 OutputDir=..\dist
-OutputBaseFilename=obs-record-source-setup-0.2.0
+OutputBaseFilename=obs-record-source-setup-0.2.1
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

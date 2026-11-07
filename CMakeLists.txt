@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28)
 
-project(obs-record-source VERSION 0.2.0 LANGUAGES C CXX)
+project(obs-record-source VERSION 0.2.1 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -84,6 +84,8 @@ add_library(obs-record-source MODULE
   src/encoder-utils.cpp
   src/localization.cpp
   src/localization.hpp
+  src/logger.cpp
+  src/logger.hpp
 )
 
 target_include_directories(obs-record-source PRIVATE

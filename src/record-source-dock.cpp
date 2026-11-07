@@ -3,6 +3,7 @@
 #include "encoder-properties-dialog.hpp"
 #include "encoder-utils.hpp"
 #include "localization.hpp"
+#include "logger.hpp"
 
 #include <obs-frontend-api.h>
 #include <obs-module.h>
@@ -893,6 +894,7 @@ void RecordSourceDock::StartRecording()
 	std::string error;
 	if (!controller.Start(config, error)) {
 		statusLabel->setText(Tr("Dock.Status.StartFailed").arg(ToQString(error)));
+		LogError("Could not start recording: " + error);
 		UpdateUi();
 		return;
 	}

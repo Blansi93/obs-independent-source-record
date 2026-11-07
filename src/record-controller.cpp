@@ -2,6 +2,7 @@
 
 #include "encoder-utils.hpp"
 #include "localization.hpp"
+#include "logger.hpp"
 
 #include <util/platform.h>
 
@@ -140,15 +141,22 @@ bool RecordController::Start(const Config &config, std::string &error)
 	bool ok = false;
 	RunOnGraphics([&]() { ok = Setup(config, error); });
 
-	if (!ok)
+	if (!ok) {
+		LogError(error);
 		return false;
+	}
 
 	RunOnGraphics([&]() {
 		if (output && !StartOutput(error)) {
+			LogError(error);
 			Cleanup();
 			ok = false;
 		}
 	});
+
+	if (ok)
+		LogInfo("Recording started: source=" + config.sourceUuid +
+			", file=" + outputPath);
 
 	return ok;
 }
@@ -531,6 +539,7 @@ void RecordController::Tick()
 
 	if (!stopRequested && source && obs_source_removed(source)) {
 		lastError = TrStd("Error.SourceClosed");
+		LogError(lastError);
 		RequestStop();
 		return;
 	}
@@ -545,6 +554,7 @@ void RecordController::Tick()
 			if (!lastError.empty())
 				lastError += " ";
 			lastError += TrStd("Error.StopTimeout");
+			LogError(lastError);
 			obs_output_force_stop(output);
 			Cleanup();
 		}
@@ -567,6 +577,10 @@ void RecordController::Shutdown()
 
 void RecordController::Cleanup()
 {
+	if (output && startedAtNs) {
+		LogInfo("Recording stopped: file=" + OutputPath() +
+			", bytes=" + std::to_string(obs_output_get_total_bytes(output)));
+	}
 	if (output) {
 		signal_handler_t *outputSignals = obs_output_get_signal_handler(output);
 		signal_handler_disconnect(outputSignals, "file_changed", FileChanged, this);

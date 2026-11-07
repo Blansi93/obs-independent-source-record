@@ -1,4 +1,5 @@
 #include "localization.hpp"
+#include "logger.hpp"
 #include "record-source-dock.hpp"
 
 #include <obs-frontend-api.h>
@@ -77,8 +78,9 @@ void obs_module_free_locale(void)
 
 bool obs_module_load(void)
 {
-	blog(LOG_INFO, "[Record Source] loaded (version 0.2.0), OBS %s",
+	blog(LOG_INFO, "[Record Source] loaded (version 0.2.1), OBS %s",
 	     obs_get_version_string());
+	LogInfo("Plugin loaded (version 0.2.1), OBS " + std::string(obs_get_version_string()));
 	return true;
 }
 
@@ -113,4 +115,5 @@ void obs_module_unload(void)
 	}
 
 	blog(LOG_INFO, "[Record Source] unloaded");
+	LogInfo("Plugin unloaded");
 }

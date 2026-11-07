@@ -1,7 +1,7 @@
 {
   "name": "obs-record-source",
   "id": "com.blansi.obs-record-source",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "display_name": "Record Source",
   "description": "Records a single source to its own file, with its own audio track and a control dock.",
   "long_description": "Record Source records an OBS source (game, window, capture card, scene...) to its own file using its own encoder and its own audio track. It does not share the output system with streaming, the main recording or the replay buffer.",
