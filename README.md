@@ -17,8 +17,7 @@ Restart OBS after installing.
 - Independent recording of a video source (scene, game, window, capture card, etc.).
 - Its own audio track, captured from the selected source.
 - Standalone file through `ffmpeg_muxer`.
-- Small dock integrated in OBS (`Docks -> Record Source`).
-- Video and audio encoder configuration with the same properties exposed by OBS.
+- Small dock integrated in OBS. The panel appears inside OBS' Docks menu/window: `Docks -> Record Source`.- Video and audio encoder configuration with the same properties exposed by OBS.
 - Per-recording color settings: color format (NV12, I420, I444, P010), color space (Rec. 709, Rec. 601, sRGB, Rec. 2100 PQ/HLG), and color range (limited or full).
 - Automatic splitting of the recording into multiple files by time or size, like OBS.
 - **Bilingual UI**: English by default for any OBS language except Spanish, where the UI is Spanish.
@@ -66,8 +65,7 @@ OBS expects the plugin at:
 ## Usage
 
 1. Open OBS Studio.
-2. Open the `Record Source` dock.
-3. Select the video source.
+2. Open the `Record Source` dock from OBS' Docks menu (`Docks -> Record Source`). The panel appears inside OBS' Docks window.3. Select the video source.
 4. Choose the destination folder, format, and, if needed, color settings and file splitting.
 5. Select and configure the video and audio encoders.
 6. Click **Start recording**.
